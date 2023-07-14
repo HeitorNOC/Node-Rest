@@ -36,5 +36,14 @@ export const resolvers = {
 
       return createdUser;
     },
+    updateUser: async (parent: any, { id, userToUpdate }: { id: string; userToUpdate: { name: string; email: string } }) => {
+  
+      const objId = new mongoose.Types.ObjectId(id)
+      const updatedUser = await userRepository.updateUser(objId, userToUpdate);
+      if (updatedUser == null) {
+        throw new Error('User not found');
+      }
+      return updatedUser;
+    }
   },
-};
+}

@@ -20,6 +20,14 @@ export class UserRepository {
     return this.mapToUser(createdUser);
   }
 
+  async updateUser(id: ObjectId, user: CreateUserInput): Promise<User | null> {
+    const updatedUser: UserDocument | null = await UserModel.findOneAndUpdate({_id: id }, { $set: {
+      name: user.name,
+      email: user.email
+    } },).exec()
+    return updatedUser ? this.mapToUser(updatedUser) : null;
+  }
+
   private mapToUser(userModel: UserDocument): User {
     return {
       _id: userModel._id,

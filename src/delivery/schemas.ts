@@ -7,12 +7,20 @@ export const typeDefs = gql`
     email: String!
   }
 
+  input updateUser {
+    name: String!
+    email: String!
+  }
+
   type Query {
     users: [User!]!
     user(id: ID!): User
+  
   }
 
   type Mutation {
     createUser(name: String!, email: String!): User!
+    updateUser(_id: String!, userToUpdate: updateUser!): User!
+    
   }
 `;
