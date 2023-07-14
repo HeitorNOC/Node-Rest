@@ -5,16 +5,12 @@ import { ObjectId } from "mongodb";
 export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(user: User): Promise<User> {
-    const newUser: User = {
+  async execute(user: CreateUserInput): Promise<User> {
+    const newUser: CreateUserInput = {
       ...user,
-      _id: new ObjectId()
     };
 
     const createdUser = await this.userRepository.createUser(newUser);
-    return {
-      ...createdUser,
-      _id: createdUser._id.toHexString(),
-    };
+    return createdUser
   }
 }

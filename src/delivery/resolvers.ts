@@ -1,12 +1,17 @@
-import { User } from '../domain/entity/User';
+import { CreateUserInput } from '../domain/entity/User';
 import { UserRepository } from '../infrastructure/provider/repository/UserRepository';
+import mongoose from 'mongoose';
 
 const userRepository = new UserRepository();
 
 export const resolvers = {
   Query: {
     user: async (parent: any, { id }: { id: string }) => {
-      const user = await userRepository.getUserById(id);
+      if (id.length != 24) {
+        throw new Error('UserId must be at least 24 characters');
+      }
+      const objId = new mongoose.Types.ObjectId(id)
+      const user = await userRepository.getUserById(objId);
       if (!user) {
         throw new Error('User not found');
       }
@@ -22,10 +27,9 @@ export const resolvers = {
   },
   Mutation: {
     createUser: async (parent: any, { name, email }: { name: string; email: string }) => {
-      const newUser: User = {
+      const newUser: CreateUserInput = {
         name,
         email,
-        _id: ''
       };
 
       const createdUser = await userRepository.createUser(newUser);
