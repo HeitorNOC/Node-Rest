@@ -21,14 +21,29 @@ export class UserRepository {
   }
 
   async updateUser(id: ObjectId, user: CreateUserInput): Promise<User | null> {
-    const updatedUser: UserDocument | null = await UserModel.findOneAndUpdate({_id: id }, { $set: {
+    const userToUpdate: UserDocument | null = await UserModel.findOneAndUpdate({_id: id },  {
       name: user.name,
       email: user.email
-    } },).exec()
-    return updatedUser ? this.mapToUser(updatedUser) : null;
+     },).exec()
+
+    const userUpdated = await this.getUserById(id)
+
+    if (userUpdated == null) {
+      return null
+    } 
+    
+    return userToUpdate != null ? this.mapToUser(userUpdated) : null;
   }
 
-  private mapToUser(userModel: UserDocument): User {
+  async deleteUser(id: ObjectId): Promise<User | null> {
+    const userToDelete: UserDocument | null = await UserModel.findOneAndDelete({ _id: id }).exec()
+
+    return userToDelete != null ? this.mapToUser(userToDelete): null
+
+    
+  }
+
+  private mapToUser(userModel: UserDocument | User): User {
     return {
       _id: userModel._id,
       name: userModel.name,

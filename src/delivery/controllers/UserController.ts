@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CreateUserUseCase } from '../../domain/usecase/createUserUseCase';
 import { UserRepository } from '../../infrastructure/provider/repository/UserRepository';
 import { UpdateUserUseCase } from '../../domain/usecase/updateUserUseCase';
+import { DeleteUserUseCase } from '../../domain/usecase/deleteUserUseCase';
 
 export class UserController {
   private userRepository: UserRepository;
@@ -38,9 +39,21 @@ export class UserController {
     try {
       const updatedUser = await updateUserUseCase.execute(_id, user)
 
-      res.status(201).json({ user });
+      res.status(201).json({ updatedUser });
     } catch (error: any) {
       res.status(400).json({ error: error.message });
+    }
+  }
+
+  async deleteUser(req: Request, res: Response): Promise<void> {
+    const { _id } = req.body
+    const deleteUserUseCase = new DeleteUserUseCase(this.userRepository)
+
+    try {
+      const deletedUser = await deleteUserUseCase.execute(_id)
+      res.status(200).json({ deletedUser })
+    } catch(error: any) {
+      res.status(400).json({ error: error.message })
     }
   }
 }

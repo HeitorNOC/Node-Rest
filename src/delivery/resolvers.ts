@@ -44,6 +44,12 @@ export const resolvers = {
         throw new Error('User not found');
       }
       return updatedUser;
+    },
+
+    deleteUser: async (parent: any, id: string) => {
+      const objId = new mongoose.Types.ObjectId(id)
+      const userDeleted = await userRepository.deleteUser(objId)
+      return userDeleted
     }
   },
 }
