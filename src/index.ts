@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './delivery/schemas';
 import { resolvers } from './delivery/resolvers';
 import mongoose from 'mongoose';
+import router from './delivery/router';
 
 async function startServer() {
   const app = express();
@@ -17,6 +18,8 @@ async function startServer() {
   server.applyMiddleware({ app });
 
   await mongoose.connect('mongodb+srv://root:root@cluster0.w0olmqi.mongodb.net/?retryWrites=true&w=majority');
+
+  app.use(router)
 
   app.listen({ port: 3000 }, () =>
     console.log(`Server ready at http://localhost:3000${server.graphqlPath}`)
