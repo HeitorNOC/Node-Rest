@@ -17,3 +17,7 @@ class UserEntity {
         this.updatedAt = updatedAt
     }
 }
+
+export {
+    UserEntity
+}
