@@ -10,6 +10,14 @@ async function getAllUsers(): Promise<UserEntity[] | null> {
     return result ? result.map((u: UserModel) => toUserEntity(u)) : []
 }
 
+async function getUserById(id: number): Promise<UserEntity | null> {
+    const repository = await Connection.getRepository(UserModel)
+    const result = await repository.findOneBy({ ID: id })
+
+    return result ? toUserEntity(result) : null
+}
+
 export {
-    getAllUsers
+    getAllUsers,
+    getUserById
 }
