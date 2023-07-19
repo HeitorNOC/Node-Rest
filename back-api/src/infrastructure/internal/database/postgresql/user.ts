@@ -17,7 +17,21 @@ async function getUserById(id: number): Promise<UserEntity | null> {
     return result ? toUserEntity(result) : null
 }
 
+async function createUser(name: string, email: string, password: string, birthday: Date): Promise<UserEntity | null> {
+    const repository = await Connection.getRepository(UserModel)
+    
+    const result = await repository.save({
+        name,
+        email,
+        password,
+        birthday
+    })
+
+    return result ? toUserEntity(result) : null
+}
+
 export {
     getAllUsers,
-    getUserById
+    getUserById,
+    createUser
 }

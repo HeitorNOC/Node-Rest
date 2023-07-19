@@ -8,6 +8,7 @@ class UserRouter {
         this.router = Router()
         this.router.get('/users', new UserController().getAllUsers)
         this.router.get('/user', new UserController().getUserById)
+        this.router.post('/user', new UserController().createUser)
     }
 
     getRouter(): Router {
