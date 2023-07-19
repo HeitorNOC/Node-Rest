@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: 'user', schema: 'user_model' })
+@Entity({ name: 'users', schema: 'users' })
 class UserModel {
     @PrimaryGeneratedColumn('increment', { type: 'int', name: 'id' })
     public ID: number

@@ -6,3 +6,7 @@ class Router {
         app.use(new UserRouter().getRouter())
     }
 }
+
+export {
+    Router
+}

@@ -13,3 +13,5 @@ class UserController {
         new SuccessResponse().success(res, ucRes)
     }
 }
+
+export {UserController}
