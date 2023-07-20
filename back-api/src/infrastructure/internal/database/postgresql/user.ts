@@ -24,7 +24,9 @@ async function createUser(name: string, email: string, password: string, birthda
         name,
         email,
         password,
-        birthday
+        birthday,
+        created_at: new Date(),
+        updated_at: new Date()
     })
 
     return result ? toUserEntity(result) : null

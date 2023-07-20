@@ -17,20 +17,20 @@ class UserModel {
     @Column({ type: 'date', update: false, name: 'birthday' })
     public birthday: Date
 
-    @Column({ type: 'timestamp', nullable: true, name: 'created_at' })
-    public createdAt: Date
+    @Column({ type: 'timestamp', name: 'created_at' })
+    public created_at: Date
 
-    @Column({ type: 'timestamp', nullable: true, name: 'updated_at'})
-    public updatedAt: Date
+    @Column({ type: 'timestamp', name: 'updated_at'})
+    public updated_at: Date
 
-    constructor(ID: number, name: string, email: string, password: string, birthday: Date, createdAt: Date, updatedAt: Date) {
+    constructor(ID: number, name: string, email: string, password: string, birthday: Date, created_at: Date, updated_at: Date) {
         this.ID = ID,
         this.name = name,
         this.email = email
         this.password = password
         this.birthday = birthday
-        this.createdAt = createdAt
-        this.updatedAt = updatedAt
+        this.created_at = created_at
+        this.updated_at = updated_at
     }
 }
 

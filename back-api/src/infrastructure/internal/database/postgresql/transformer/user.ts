@@ -8,8 +8,8 @@ function toUserEntity(u: UserModel): UserEntity {
         u.email,
         u.password,
         u.birthday,
-        u.createdAt,
-        u.updatedAt
+        u.created_at,
+        u.updated_at
     )
 }
 
@@ -23,8 +23,8 @@ function toUserModel(u: UserEntity): UserModel {
         u.email,
         u.password,
         u.birthday,
-        u.createdAt,
-        u.updatedAt
+        u.created_at,
+        u.updated_at
     )
 }
 
