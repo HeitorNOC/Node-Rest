@@ -12,8 +12,13 @@ interface CreateUserUseCaseRepositoryInterface {
     createUser(name: string, email: string, password: string, birthday: Date): Promise<UserEntity | null>
 }
 
+interface UpdateUserUseCaseRepositoryInterface {
+    updateUser(id: number, name: string, email: string, password: string, birthday: Date): Promise<UserEntity | null>
+}
+
 export {
     GetAllUsersUseCaseRepositoryInterface,
     GetUserByIdUseCaseRepositoryInterface,
-    CreateUserUseCaseRepositoryInterface
+    CreateUserUseCaseRepositoryInterface,
+    UpdateUserUseCaseRepositoryInterface
 }

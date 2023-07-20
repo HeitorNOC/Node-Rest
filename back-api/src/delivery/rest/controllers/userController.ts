@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { SuccessResponse } from "../response/response";
-import { CreateUserUseCaseRepository, GetAllUsersUseCaseRepository, GetUserByIdUseCaseRepository } from "../../../infrastructure/provider/repository/userRepository";
+import { CreateUserUseCaseRepository, GetAllUsersUseCaseRepository, GetUserByIdUseCaseRepository, UpdateUserUseCaseRepository } from "../../../infrastructure/provider/repository/userRepository";
 import { GetAllUsersUseCase } from "../../../domain/usecase/getAllUsers";
 import { GetUserByIdUseCase } from "../../../domain/usecase/getUserById";
-import { CreateUserUseCaseRequest, GetUserByIdUseCaseRequest } from "../../../domain/usecase/ucio/user";
+import { CreateUserUseCaseRequest, GetUserByIdUseCaseRequest, UpdateUserUseCaseRequest } from "../../../domain/usecase/ucio/user";
 import { CreateUserUseCase } from "../../../domain/usecase/createUser";
 import { parseDateFromString } from "../../../infrastructure/internal/database/postgresql/transformer/dateToString";
+import { UpdateUserUseCase } from "../../../domain/usecase/updateUser";
 
 class UserController {
     async getAllUsers(req: Request, res: Response): Promise<void> {
@@ -43,6 +44,19 @@ class UserController {
         const usecase = new CreateUserUseCase(repository)
 
         const ucRes = await usecase.createUser(ucReq)
+
+        new SuccessResponse().success(res, ucRes)
+    }
+
+    async updateUser(req: Request, res: Response): Promise<void> {
+        const { id, name, email, password, birthday } = req.body
+
+        const ucReq = new UpdateUserUseCaseRequest(id, name, email, password, birthday)
+
+        const repository = new UpdateUserUseCaseRepository()
+        const usecase = new UpdateUserUseCase(repository)
+
+        const ucRes = await usecase.updateUser(ucReq)
 
         new SuccessResponse().success(res, ucRes)
     }
