@@ -11,7 +11,7 @@ class GetUserByIdUseCase {
 
     async getUserById(req: GetUserByIdUseCaseRequest): Promise<GetUserByIdUseCaseResponse> {
         try {
-            const user = await this.repository.getUserById(req.userID)
+            const user = await this.repository.getUserById(req.id)
 
             return new GetUserByIdUseCaseResponse(user, null)
         } catch (error: any) {

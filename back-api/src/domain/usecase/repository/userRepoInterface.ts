@@ -16,9 +16,14 @@ interface UpdateUserUseCaseRepositoryInterface {
     updateUser(id: number, name: string, email: string, password: string, birthday: Date): Promise<UserEntity | null>
 }
 
+interface DeleteUserUseCaseRepositoryInterface {
+    deleteUser(id: number): Promise<UserEntity | null>
+}
+
 export {
     GetAllUsersUseCaseRepositoryInterface,
     GetUserByIdUseCaseRepositoryInterface,
     CreateUserUseCaseRepositoryInterface,
-    UpdateUserUseCaseRepositoryInterface
+    UpdateUserUseCaseRepositoryInterface,
+    DeleteUserUseCaseRepositoryInterface
 }

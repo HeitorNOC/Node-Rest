@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { SuccessResponse } from "../response/response";
-import { CreateUserUseCaseRepository, GetAllUsersUseCaseRepository, GetUserByIdUseCaseRepository, UpdateUserUseCaseRepository } from "../../../infrastructure/provider/repository/userRepository";
+import { CreateUserUseCaseRepository, DeleteUserUseCaseRepository, GetAllUsersUseCaseRepository, GetUserByIdUseCaseRepository, UpdateUserUseCaseRepository } from "../../../infrastructure/provider/repository/userRepository";
 import { GetAllUsersUseCase } from "../../../domain/usecase/getAllUsers";
 import { GetUserByIdUseCase } from "../../../domain/usecase/getUserById";
-import { CreateUserUseCaseRequest, GetUserByIdUseCaseRequest, UpdateUserUseCaseRequest } from "../../../domain/usecase/ucio/user";
+import { CreateUserUseCaseRequest, DeleteUserUseCaseRequest, GetUserByIdUseCaseRequest, UpdateUserUseCaseRequest } from "../../../domain/usecase/ucio/user";
 import { CreateUserUseCase } from "../../../domain/usecase/createUser";
 import { parseDateFromString } from "../../../infrastructure/internal/database/postgresql/transformer/dateToString";
 import { UpdateUserUseCase } from "../../../domain/usecase/updateUser";
+import { DeleteUserUseCase } from "../../../domain/usecase/deleteUser";
 
 class UserController {
     async getAllUsers(req: Request, res: Response): Promise<void> {
@@ -57,6 +58,19 @@ class UserController {
         const usecase = new UpdateUserUseCase(repository)
 
         const ucRes = await usecase.updateUser(ucReq)
+
+        new SuccessResponse().success(res, ucRes)
+    }
+
+    async deleteUser(req: Request, res: Response): Promise<void> {
+        const { id } = req.body
+
+        const ucReq = new DeleteUserUseCaseRequest(id)
+
+        const repository = new DeleteUserUseCaseRepository()
+        const usecase = new DeleteUserUseCase(repository)
+        
+        const ucRes = await usecase.deleteUser(ucReq)
 
         new SuccessResponse().success(res, ucRes)
     }

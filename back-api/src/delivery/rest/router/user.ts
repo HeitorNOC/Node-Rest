@@ -10,6 +10,7 @@ class UserRouter {
         this.router.get('/user', new UserController().getUserById)
         this.router.post('/user', new UserController().createUser)
         this.router.patch('/user', new UserController().updateUser)
+        this.router.delete('/user', new UserController().deleteUser)
     }
 
     getRouter(): Router {

@@ -1,6 +1,6 @@
 import { UserEntity } from "../../../domain/entity/User";
-import { CreateUserUseCaseRepositoryInterface, GetAllUsersUseCaseRepositoryInterface, GetUserByIdUseCaseRepositoryInterface, UpdateUserUseCaseRepositoryInterface } from "../../../domain/usecase/repository/userRepoInterface";
-import { createUser, getAllUsers, getUserById, updateUser } from "../../internal/database/postgresql/user";
+import { CreateUserUseCaseRepositoryInterface, DeleteUserUseCaseRepositoryInterface, GetAllUsersUseCaseRepositoryInterface, GetUserByIdUseCaseRepositoryInterface, UpdateUserUseCaseRepositoryInterface } from "../../../domain/usecase/repository/userRepoInterface";
+import { createUser, deleteUser, getAllUsers, getUserById, updateUser } from "../../internal/database/postgresql/user";
 
 class GetAllUsersUseCaseRepository implements GetAllUsersUseCaseRepositoryInterface {
     async getAllUsers(): Promise<(UserEntity[] | null)> {
@@ -29,9 +29,16 @@ class UpdateUserUseCaseRepository implements UpdateUserUseCaseRepositoryInterfac
     
 }
 
+class DeleteUserUseCaseRepository implements DeleteUserUseCaseRepositoryInterface {
+    async deleteUser(id: number): Promise<UserEntity | null> {
+        return await deleteUser(id)
+    }
+}
+
 export {
     GetAllUsersUseCaseRepository,
     GetUserByIdUseCaseRepository,
     CreateUserUseCaseRepository,
-    UpdateUserUseCaseRepository
+    UpdateUserUseCaseRepository,
+    DeleteUserUseCaseRepository
 }

@@ -48,9 +48,24 @@ async function updateUser(id: number, name: string, email: string, password: str
     return userUpdated ? toUserEntity(userUpdated) : null
 }
 
+async function deleteUser(id: number) {
+    const repository = await Connection.getRepository(UserModel)
+
+    const oldUser = await repository.findOneBy({ ID: id })
+
+    await repository.delete(id)
+
+    const userDelete = await repository.findOneBy({ ID: id })
+
+    return !userDelete ? toUserEntity(oldUser) : null
+
+    
+}
+
 export {
     getAllUsers,
     getUserById,
     createUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

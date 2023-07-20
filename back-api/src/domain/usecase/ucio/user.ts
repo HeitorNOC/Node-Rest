@@ -12,10 +12,10 @@ class GetAllUsersUseCaseResponse {
 }
 
 class GetUserByIdUseCaseRequest {
-    public userID: number
+    public id: number
 
-    constructor(userID: number) {
-        this.userID = userID
+    constructor(id: number) {
+        this.id = id
     }
 }
 
@@ -80,6 +80,24 @@ class UpdateUserUseCaseResponse {
     }
 }
 
+class DeleteUserUseCaseRequest {
+    public id: number
+    
+    constructor(id: number) {
+        this.id = id
+    }
+}
+
+class DeleteUserUseCaseResponse {
+    public user: UserEntity | null
+    public error: ErrorEntity | null
+
+    constructor(user: UserEntity | null, error: ErrorEntity | null) {
+        this.user = user
+        this.error = error
+    }
+}
+
 
 
 export {
@@ -89,5 +107,7 @@ export {
     CreateUserUseCaseRequest,
     CreateUserUseCaseResponse,
     UpdateUserUseCaseRequest,
-    UpdateUserUseCaseResponse
+    UpdateUserUseCaseResponse,
+    DeleteUserUseCaseRequest,
+    DeleteUserUseCaseResponse
 }
